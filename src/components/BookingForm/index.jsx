@@ -18,9 +18,10 @@ const requiredFields = {
   'customer.name': 'Name',
   'customer.surname': 'Surname',
   'customer.email': 'E-mail',
-  'customer.address.line1': 'First line of address',
+  'customer.address.road': 'Street',
+  'customer.address.houseNumber': 'House number',
   'customer.address.city': 'City',
-  'customer.address.country': 'Country',
+  'customer.address.countryCode': 'Country',
 };
 
 const BookingForm = ({
@@ -40,12 +41,12 @@ const BookingForm = ({
       email: '', // req
       phone: '',
       address: {
-        line1: '', // req
-        line2: '',
-        postalCode: '',
+        road: '', // req
+        houseNumber: '', // req
+        postcode: '',
         city: '', // req
         state: '',
-        country: '', // req
+        countryCode: '', // req
       },
     }, customerData),
   };

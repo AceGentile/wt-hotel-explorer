@@ -16,7 +16,7 @@ Example web application showcasing what the Winding Tree platform is capable of.
 To run this app locally, use `npm start` command. It will be connected to the
 [playground environment](https://github.com/windingtree/wiki/blob/master/developer-resources.md#publicly-available-wt-deployments)
 and you can happily develop with [HMR enabled](https://webpack.js.org/concepts/hot-module-replacement/).
-It will be available on `http://localhost:3000`.
+It will be available on `http://localhost:3001`.
 
 You can also run this app from a docker container. Please note that there are two
 sets of environment variables. The `NODE_ENV` and `GIT_REV` have to be provided
