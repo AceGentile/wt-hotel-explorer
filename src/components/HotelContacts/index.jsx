@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // TODO incorporate most common additional contacts #22
-const HotelContact = ({ contact }) => {
+const Contact = ({ contact }) => {
   const additionalContacts = contact.additionalContacts && contact.additionalContacts.map(c => (
     <li key={c.title}>
       <strong>{c.title}</strong>
@@ -39,13 +39,13 @@ const HotelContact = ({ contact }) => {
   );
 };
 
-HotelContact.propTypes = {
+Contact.propTypes = {
   contact: PropTypes.instanceOf(Object).isRequired,
 };
 
 const HotelContacts = ({ contacts }) => (
   <div>
-    <HotelContact contact={contacts.general} />
+    <Contact contact={contacts.general} />
   </div>
 );
 
@@ -54,3 +54,8 @@ HotelContacts.propTypes = {
 };
 
 export default HotelContacts;
+
+export {
+  Contact,
+  HotelContacts,
+};

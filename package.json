@@ -8,7 +8,7 @@
     "test": "rimraf coverage && jest --coverage",
     "coverage": "cat coverage/lcov.info | coveralls",
     "start": "NODE_ENV=development GIT_REV=`git rev-parse --short HEAD` ./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --disable-host-check",
-    "update-country-list": "node ./management/get-country-codes.js > src/assets/country-list.json",
+    "update-country-list": "node ./management/get-country-codes.js",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --mode=production",
     "build-env-file": "./management/build-env-file.sh",
     "superstatic": "./node_modules/.bin/superstatic --debug 1 --port 8080 --host 0.0.0.0 --gzip 1 public/",
