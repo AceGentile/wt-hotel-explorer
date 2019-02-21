@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import ScrollAnimation from 'react-animate-on-scroll';
 import { withRouter } from 'react-router-dom';
 import imagePlaceholder from '../../assets/img/placeholder.png';
+import enums from '../../services/enums';
 
 class HotelListingItem extends React.Component {
   onCardClick = () => {
@@ -30,7 +31,6 @@ class HotelListingItem extends React.Component {
       : imagePlaceholder;
     return (
       <ScrollAnimation animateIn="fadeInUp" animateOnce>
-
         <div onClick={this.onCardClick} onKeyPress={this.onKeyPress} className="card mb-2 card-with-links" role="link" tabIndex="0">
           <img src={selectedImage} alt={hotel.name} className="card-img-top" />
           <div className="card-body pt-1 text-muted block-fade">
@@ -56,6 +56,15 @@ class HotelListingItem extends React.Component {
           )}
           <div className="card-footer bg-white pt-0">
             <span className="text--link border-bottom">See detail</span>
+            {enums.hotelCategory[hotel.category] && (
+            <div className="float-right">
+              <span className="badge badge-primary">
+                Category:
+                {' '}
+                {enums.hotelCategory[hotel.category]}
+              </span>
+            </div>
+            )}
           </div>
         </div>
       </ScrollAnimation>

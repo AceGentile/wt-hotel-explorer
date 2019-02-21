@@ -17,7 +17,7 @@ const Address = ({ name, address }) => (
     <h4>{name}</h4>
     <p>
       {addressFormatter.format(address, { appendCountry: true, output: 'array' }).map(l => (
-        <span>
+        <span key={l}>
           {l}
           <br />
         </span>

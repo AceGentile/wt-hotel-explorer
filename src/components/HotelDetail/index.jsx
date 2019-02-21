@@ -7,6 +7,7 @@ import AmenitiesList from '../AmenitiesList';
 import HotelInfoBox from '../HotelInfoBox';
 import RoomTypes from '../RoomTypes';
 import GuestForm from '../GuestForm';
+import enums from '../../services/enums';
 
 // TODO use cancellationPolicies + defaultCancellationAmount
 const HotelDetail = ({
@@ -24,9 +25,16 @@ const HotelDetail = ({
               <ReactMarkdown source={hotel.description} className="hotel-description mb-1" />
             </div>
           </div>
-          {hotel.amenities && (
+          {(hotel.amenities || enums.hotelCategory[hotel.category]) && (
             <div className="mb-2">
-              <AmenitiesList list={hotel.amenities} />
+              {enums.hotelCategory[hotel.category] && (
+                <span className="badge badge-primary badge-pill">
+                  Category:
+                  {' '}
+                  {enums.hotelCategory[hotel.category]}
+                </span>
+              )}
+              {hotel.amenities && <AmenitiesList list={hotel.amenities} />}
             </div>
           )}
         </div>
