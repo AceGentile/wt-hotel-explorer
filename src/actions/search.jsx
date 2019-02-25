@@ -41,11 +41,24 @@ const paginatedFetchSearchResults = url => fetch(url)
     return data;
   });
 
-export const byLocation = createActionThunk('SEARCH_HOTELS_BY_LOCATION', ({ centerCoords, bboxSide }) => {
-  const url = `${window.env.WT_SEARCH_API}/hotels/?location=${centerCoords[0]},${centerCoords[1]}:${bboxSide}&sortByDistance=${centerCoords[0]},${centerCoords[1]}`;
+export const byAttributes = createActionThunk('SEARCH_HOTELS', ({ centerCoords, bboxSide, category }) => {
+  const attrs = [];
+  if (category) {
+    attrs.category = category;
+  }
+  if (centerCoords && bboxSide) {
+    attrs.location = `${centerCoords[0]},${centerCoords[1]}:${bboxSide}`;
+  }
+  if (centerCoords) {
+    attrs.sortByDistance = `${centerCoords[0]},${centerCoords[1]}`;
+  }
+  const joinedAttrs = Object.keys(attrs)
+    .map(k => `${k}=${attrs[k]}`)
+    .join('&');
+  const url = `${window.env.WT_SEARCH_API}/hotels/?${joinedAttrs}`;
   return paginatedFetchSearchResults(url);
 });
 
 export default {
-  byLocation,
+  byAttributes,
 };

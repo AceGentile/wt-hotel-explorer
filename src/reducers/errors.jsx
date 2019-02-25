@@ -49,11 +49,11 @@ const reducer = (state = defaultState, action) => {
       return Object.assign({}, state, {
         booking: undefined,
       });
-    case 'SEARCH_HOTELS_BY_LOCATION_FAILED':
+    case 'SEARCH_HOTELS_FAILED':
       return Object.assign({}, state, {
         search: action.payload.message,
       });
-    case 'SEARCH_HOTELS_BY_LOCATION_STARTED':
+    case 'SEARCH_HOTELS_STARTED':
       return Object.assign({}, state, {
         search: undefined,
       });
