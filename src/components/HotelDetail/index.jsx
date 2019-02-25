@@ -7,6 +7,8 @@ import AmenitiesList from '../AmenitiesList';
 import HotelInfoBox from '../HotelInfoBox';
 import RoomTypes from '../RoomTypes';
 import GuestForm from '../GuestForm';
+import enums from '../../services/enums';
+import languageList from '../../assets/language-list.json';
 
 // TODO use cancellationPolicies + defaultCancellationAmount
 const HotelDetail = ({
@@ -24,9 +26,19 @@ const HotelDetail = ({
               <ReactMarkdown source={hotel.description} className="hotel-description mb-1" />
             </div>
           </div>
-          {hotel.amenities && (
+          {(hotel.amenities || enums.hotelCategory[hotel.category] || hotel.spokenLanguages) && (
             <div className="mb-2">
-              <AmenitiesList list={hotel.amenities} />
+              {enums.hotelCategory[hotel.category] && (
+                <span className="badge badge-primary badge-pill">
+                  {`Category: ${enums.hotelCategory[hotel.category]}`}
+                </span>
+              )}
+              {hotel.amenities && <AmenitiesList list={hotel.amenities} />}
+              {hotel.spokenLanguages && hotel.spokenLanguages.map(lang => (
+                <span key={lang} className="badge badge-light badge-pill">
+                  {`Spoken language: ${languageList[lang]}`}
+                </span>
+              ))}
             </div>
           )}
         </div>

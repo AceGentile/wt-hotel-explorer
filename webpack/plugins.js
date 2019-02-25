@@ -27,7 +27,7 @@ const cleanOptions = {
 };
 
 const plugins = [
-  new webpack.EnvironmentPlugin(['NODE_ENV', 'WT_READ_API', 'WT_SEARCH_API']),
+  new webpack.EnvironmentPlugin(['NODE_ENV']),
   new CleanWebpackPlugin(pathsToClean, cleanOptions),
   new webpack.NamedModulesPlugin(),
   new HtmlWebpackPlugin({

@@ -28,7 +28,8 @@ const LoadableHome = Loadable({
   loader: () => import(
     /* webpackChunkName: "Home-page" */
     /* webpackMode: "lazy" */
-    './Home',
+    // eslint-disable-next-line comma-dangle
+    './Home'
   ),
   loading() {
     return <Loader block={200} label="Loading..." />;
@@ -39,7 +40,8 @@ const LoadableBookingWizard = Loadable({
   loader: () => import(
     /* webpackChunkName: "Booking-Wizard" */
     /* webpackMode: "lazy" */
-    './BookingWizard',
+    // eslint-disable-next-line comma-dangle
+    './BookingWizard'
   ),
   loading() {
     return <Loader block={200} label="Loading..." />;
@@ -50,7 +52,8 @@ const LoadableSearchOnMap = Loadable({
   loader: () => import(
     /* webpackChunkName: "Search-On-Map" */
     /* webpackMode: "lazy" */
-    './SearchOnMap',
+    // eslint-disable-next-line comma-dangle
+    './SearchOnMap'
   ),
   loading() {
     return <Loader block={200} label="Loading..." />;

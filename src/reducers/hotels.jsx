@@ -51,7 +51,7 @@ const reducer = (state = defaultState, action) => {
         hotelsLoading: true,
       });
     // cache hotels returned with search query for later use
-    case 'SEARCH_HOTELS_BY_LOCATION_SUCCEEDED':
+    case 'SEARCH_HOTELS_SUCCEEDED':
       modifiedList = [...state.list];
       existingIds = state.list.reduce((acc, h, i) => {
         acc[h.id] = i;

@@ -18,14 +18,18 @@ const LIST_FIELDS = [
   'images',
   'bookingUri',
   'currency',
+  'category',
 ];
 
 const DETAIL_FIELDS = [
   'id',
   'name',
+  'category',
   'description',
   'location',
   'images',
+  'operator',
+  'spokenLanguages',
   'bookingUri',
   'contacts',
   'address',
