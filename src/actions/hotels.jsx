@@ -8,6 +8,7 @@ import {
   HttpBadRequestError,
   HttpInternalServerError,
   HttpBadGatewayError,
+  HttpConflictError,
 } from '../services/errors';
 
 const LIMIT = 5;
@@ -81,6 +82,10 @@ export const fetchHotelDetail = createActionThunk('FETCH_DETAIL', ({ id }) => {
   return fetch(url).then((response) => {
     if (response.status > 299) {
       throw translateNetworkError(response.status, id, 'Cannot get hotel detail!');
+    }
+    if (response.headers.get('x-data-validation-warning')) {
+      // Don't show data with warnings for now
+      throw new HttpConflictError();
     }
     return response.json();
   });
