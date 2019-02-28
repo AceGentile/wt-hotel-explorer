@@ -1,4 +1,4 @@
-import { indexAvailability } from '@windingtree/wt-pricing-algorithms/src/availability';
+import { indexAvailability } from '@windingtree/wt-pricing-algorithms';
 
 import { createActionThunk } from 'redux-thunk-actions';
 
