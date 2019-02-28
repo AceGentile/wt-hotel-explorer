@@ -1,3 +1,5 @@
+import { indexAvailability } from '@windingtree/wt-pricing-algorithms/src/availability';
+
 import { createActionThunk } from 'redux-thunk-actions';
 
 import {
@@ -117,7 +119,7 @@ export const fetchHotelRatePlans = createActionThunk('FETCH_HOTEL_RATE_PLANS', (
       return response.json();
     })
     .then(data => ({
-      data,
+      data: data.items,
       id,
     }));
 });
@@ -132,7 +134,10 @@ export const fetchHotelAvailability = createActionThunk('FETCH_HOTEL_AVAILABILIT
       return response.json();
     })
     .then(data => ({
-      data,
+      data: {
+        items: indexAvailability(data.items),
+        updatedAt: data.updatedAt,
+      },
       id,
     }));
 });
@@ -147,7 +152,7 @@ export const fetchHotelRoomTypes = createActionThunk('FETCH_HOTEL_ROOM_TYPES', (
       return response.json();
     })
     .then(data => ({
-      data,
+      data: data.items,
       id,
     }));
 });
