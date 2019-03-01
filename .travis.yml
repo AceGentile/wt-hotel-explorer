@@ -26,6 +26,17 @@ jobs:
     - docker push windingtree/wt-hotel-explorer:$TRAVIS_BRANCH
     - docker tag windingtree/wt-hotel-explorer:$TRAVIS_BRANCH windingtree/wt-hotel-explorer:latest
     - docker push windingtree/wt-hotel-explorer:latest
+  - stage: NPM release
+    if: tag IS present
+    script: echo 'Deploying to NPM...'
+    deploy:
+      provider: npm
+      email: chadima.jiri@gmail.com
+      skip_cleanup: true
+      api_key: "$NPM_TOKEN"
+      on:
+        repo: windingtree/wt-hotel-explorer
+        tags: true
   - stage: release-playground
     install: true
     if: branch = release/playground

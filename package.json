@@ -10,7 +10,7 @@
     "start": "NODE_ENV=development GIT_REV=`git rev-parse --short HEAD` ./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --disable-host-check",
     "update-country-list": "node ./management/get-country-codes.js",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --mode=production",
-    "build-env-file": "./management/build-env-file.sh",
+    "build-env-file": "node ./management/build-env-file.js",
     "superstatic": "./node_modules/.bin/superstatic --debug 1 --port 8080 --host 0.0.0.0 --compression 1 public/",
     "docker-start": "npm run build-env-file && npm run superstatic",
     "deploy-aws-playground": "./management/deploy-aws.sh playground",
@@ -20,6 +20,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/windingtree/wt-hotel-explorer"
+  },
+  "bin": {
+    "wt-hotel-explorer": "./management/start-app.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "license": "MIT",
   "dependencies": {
