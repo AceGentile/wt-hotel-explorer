@@ -24,7 +24,7 @@ const transformAvailability = (responseData) => {
   if (responseData.roomTypes) {
     return {
       updatedAt: responseData.updatedAt,
-      availability: availability.indexAvailability(responseData.roomTypes),
+      availability: responseData.items,
     };
   }
   return responseData;
