@@ -20,17 +20,6 @@ const remapErroredIds = list => list
     });
   }, {});
 
-const transformAvailability = (responseData) => {
-  if (responseData.items) {
-    return {
-      updatedAt: responseData.updatedAt,
-      availability: responseData.items,
-    };
-  }
-  return responseData;
-};
-
-
 const reducer = (state = defaultState, action) => {
   let modifiedList;
   let existingIds;
@@ -224,7 +213,7 @@ const reducer = (state = defaultState, action) => {
       hotelIndex = modifiedList.indexOf(hotel);
       console.log(action.payload.data);
       hotel = Object.assign({}, hotel, {
-        availability: transformAvailability(action.payload.data),
+        availability: action.payload.data,
       });
       modifiedList[hotelIndex] = hotel;
       return Object.assign({}, state, {
