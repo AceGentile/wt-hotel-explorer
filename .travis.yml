@@ -28,7 +28,8 @@ jobs:
     - docker push windingtree/wt-hotel-explorer:latest
   - stage: NPM release
     if: tag IS present
-    script: echo 'Deploying to NPM...'
+    script:
+    - npm run build
     deploy:
       provider: npm
       email: chadima.jiri@gmail.com
