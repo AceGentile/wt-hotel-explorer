@@ -11,7 +11,7 @@
     "update-country-list": "node ./management/get-country-codes.js",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --mode=production",
     "build-env-file": "./management/build-env-file.sh",
-    "superstatic": "./node_modules/.bin/superstatic --debug 1 --port 8080 --host 0.0.0.0 --gzip 1 public/",
+    "superstatic": "./node_modules/.bin/superstatic --debug 1 --port 8080 --host 0.0.0.0 --compression 1 public/",
     "docker-start": "npm run build-env-file && npm run superstatic",
     "deploy-aws-playground": "./management/deploy-aws.sh playground",
     "deploy-aws-demo": "./management/deploy-aws.sh demo",
