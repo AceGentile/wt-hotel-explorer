@@ -1,5 +1,3 @@
-import { availability } from '@windingtree/wt-pricing-algorithms';
-
 const defaultState = {
   erroredHotels: {},
   list: [],
@@ -211,7 +209,6 @@ const reducer = (state = defaultState, action) => {
         return state;
       }
       hotelIndex = modifiedList.indexOf(hotel);
-      console.log(action.payload.data);
       hotel = Object.assign({}, hotel, {
         availability: action.payload.data,
       });
