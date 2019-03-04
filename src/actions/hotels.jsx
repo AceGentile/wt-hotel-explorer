@@ -1,3 +1,5 @@
+import { availability } from '@windingtree/wt-pricing-algorithms';
+
 import { createActionThunk } from 'redux-thunk-actions';
 
 import {
@@ -6,6 +8,7 @@ import {
   HttpBadRequestError,
   HttpInternalServerError,
   HttpBadGatewayError,
+  HttpConflictError,
 } from '../services/errors';
 
 const LIMIT = 5;
@@ -80,6 +83,10 @@ export const fetchHotelDetail = createActionThunk('FETCH_DETAIL', ({ id }) => {
     if (response.status > 299) {
       throw translateNetworkError(response.status, id, 'Cannot get hotel detail!');
     }
+    if (response.headers.get('x-data-validation-warning')) {
+      // Don't show data with warnings for now
+      throw new HttpConflictError();
+    }
     return response.json();
   });
 });
@@ -117,7 +124,7 @@ export const fetchHotelRatePlans = createActionThunk('FETCH_HOTEL_RATE_PLANS', (
       return response.json();
     })
     .then(data => ({
-      data,
+      data: data.items,
       id,
     }));
 });
@@ -132,7 +139,10 @@ export const fetchHotelAvailability = createActionThunk('FETCH_HOTEL_AVAILABILIT
       return response.json();
     })
     .then(data => ({
-      data,
+      data: {
+        items: availability.indexAvailability(data.items),
+        updatedAt: data.updatedAt,
+      },
       id,
     }));
 });
@@ -147,7 +157,7 @@ export const fetchHotelRoomTypes = createActionThunk('FETCH_HOTEL_ROOM_TYPES', (
       return response.json();
     })
     .then(data => ({
-      data,
+      data: data.items,
       id,
     }));
 });
