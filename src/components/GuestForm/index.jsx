@@ -78,7 +78,7 @@ const GuestForm = ({ handleSubmit, initialValues }) => {
     if (!values.guests || values.guests.length < 1) {
       errors.guests = 'We need information about at least one guest!';
     }
-    if (values.guests.filter(x => Number.isInteger(x.age)).length < 1) {
+    if (!values.guests.find(x => Number.isInteger(x.age))) {
       errors.guests = 'We need information about at least one guest!';
     }
     const normalizedArrival = dayjs(values.arrival);
