@@ -1,4 +1,4 @@
-const { resolve, join } = require('path');
+const { join } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -11,24 +11,16 @@ const packageJson = require('../package');
 const isProduction = process.env.NODE_ENV === 'production';
 
 const targetRouter = process.env.HASH_ROUTED_BUILD ? 'hash-router' : 'connected-router';
-const publicPath = 'public';
-
-// the path(s) that should be cleaned
-const pathsToClean = [
-  `${publicPath}/**/*.*`,
-];
 
 // the clean options to use
 const cleanOptions = {
-  root: resolve(__dirname, '..'),
-  exclude: [`${publicPath}/.gitignore`],
   verbose: true,
   dry: false,
 };
 
 const plugins = [
   new webpack.EnvironmentPlugin(['NODE_ENV']),
-  new CleanWebpackPlugin(pathsToClean, cleanOptions),
+  new CleanWebpackPlugin(cleanOptions),
   new webpack.NamedModulesPlugin(),
   new HtmlWebpackPlugin({
     template: join('src', 'index.html'),
@@ -39,10 +31,10 @@ const plugins = [
   }),
   new webpack.NormalModuleReplacementPlugin(
     /(.*)\.TARGET_ROUTER(\.*)/,
-    function(resource) {
+    ((resource) => {
       resource.request = resource.request
         .replace(/\.TARGET_ROUTER/, `.${targetRouter}`);
-    }
+    }),
   ),
   new CopyWebpackPlugin(['src/env.js']),
 ];
