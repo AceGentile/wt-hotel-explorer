@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import ScrollAnimation from 'react-animate-on-scroll';
 
-import AmenitiesList from '../AmenitiesList';
+import PillList from '../PillList';
 import HotelInfoBox from '../HotelInfoBox';
 import RoomTypes from '../RoomTypes';
 import GuestForm from '../GuestForm';
@@ -28,17 +28,10 @@ const HotelDetail = ({
           </div>
           {(hotel.amenities || enums.hotelCategory[hotel.category] || hotel.spokenLanguages) && (
             <div className="mb-2">
-              {enums.hotelCategory[hotel.category] && (
-                <span className="badge badge-primary badge-pill">
-                  {`Category: ${enums.hotelCategory[hotel.category]}`}
-                </span>
-              )}
-              {hotel.amenities && <AmenitiesList list={hotel.amenities} />}
-              {hotel.spokenLanguages && hotel.spokenLanguages.map(lang => (
-                <span key={lang} className="badge badge-light badge-pill">
-                  {`Spoken language: ${languageList[lang]}`}
-                </span>
-              ))}
+              <PillList list={[enums.hotelCategory[hotel.category]]} className="badge-primary" prefix="Category: " />
+              <PillList list={hotel.amenities} />
+              <PillList list={hotel.spokenLanguages && hotel.spokenLanguages.map(l => languageList[l])} className="badge-light" prefix="Spoken language:" />
+              <PillList list={hotel.tags} className="badge-info" />
             </div>
           )}
         </div>

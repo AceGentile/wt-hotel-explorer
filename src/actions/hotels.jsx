@@ -37,6 +37,7 @@ const DETAIL_FIELDS = [
   'contacts',
   'address',
   'amenities',
+  'tags',
   'defaultCancellationAmount',
   'cancellationPolicies',
   'roomTypes',
