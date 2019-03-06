@@ -25,7 +25,7 @@ BookRoomButton.propTypes = {
   roomTypeId: PropTypes.string.isRequired,
 };
 
-// TODO use properties, totalQuantity and occupancy
+// TODO use totalQuantity and occupancy
 class RoomType extends React.PureComponent {
   render() {
     const {
