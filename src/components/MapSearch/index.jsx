@@ -41,7 +41,7 @@ class MapSearch extends React.PureComponent {
     }
   }
 
-  performSearch(centerPoint, centerCoords, bboxSide) {
+  performSearch(centerPoint, centerCoords, bboxSide, category) {
     const { handleSearchFormSubmit } = this.props;
     // Photon and Leaflet use lng,lat and lat,lng :(
     // We need to do a copy to prevent reversing back and forth
@@ -49,17 +49,20 @@ class MapSearch extends React.PureComponent {
     this.setState({
       submittedCenterCoords: revertedCoords,
       submittedBboxSide: parseInt(bboxSide, 10),
+      submittedCategory: category,
       submittedCenterPoint: centerPoint,
     });
     return handleSearchFormSubmit({
       centerCoords: revertedCoords,
       bboxSide,
+      category,
     });
   }
 
   render() {
     const {
-      submittedCenterCoords, submittedBboxSide, submittedCenterPoint, lookupError,
+      submittedCenterCoords, submittedBboxSide, submittedCenterPoint,
+      submittedCategory, lookupError,
     } = this.state;
     const { results, sortedResults, searchError } = this.props;
     const sortedResultsRows = sortedResults.map(s => (
@@ -95,7 +98,7 @@ class MapSearch extends React.PureComponent {
         <div className="row">
           <div className="col-md-12 map-container-lg">
             {(submittedBboxSide && (
-              <h3>{`Showing hotels from ${submittedBboxSide} KM around ${submittedCenterPoint}`}</h3>
+              <h3>{`Showing ${submittedCategory ? `${submittedCategory.toLowerCase()}s` : 'hotels'} from ${submittedBboxSide} KM around ${submittedCenterPoint}`}</h3>
             ))}
             <HotelsMap
               centerpoint={submittedCenterCoords}

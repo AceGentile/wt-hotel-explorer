@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
-import AmenitiesList from '../AmenitiesList';
+import PillList from '../PillList';
 import RoomTypeImageModal from '../RoomTypeImageModal';
 import imagePlaceholder from '../../assets/img/placeholder.png';
 
@@ -32,9 +32,7 @@ class RoomType extends React.PureComponent {
             <div className="pt-1 text-muted">
               <h5 className="card-title h5">{roomType.name}</h5>
               <ReactMarkdown className="card-text text--weight-normal" source={roomType.description} />
-              {roomType.amenities && (
-                <AmenitiesList list={roomType.amenities} />
-              )}
+              <PillList list={roomType.amenities} />
             </div>
           </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ImageList from '../ImageList';
-import HotelContacts from '../HotelContacts';
+import { HotelContacts, Contact } from '../HotelContacts';
 import CancellationForm from '../CancellationForm';
 import { Address, LocationMap } from '../HotelLocation';
 
@@ -35,6 +35,19 @@ const HotelInfoBox = ({ hotel, handleCancellationFormSubmit }) => (
           <HotelContacts contacts={hotel.contacts} />
         </div>
       </div>
+      {hotel.operator && (
+        <div className="row pt-1">
+          <div className="col-lg-2">
+            <h5>Operated by</h5>
+          </div>
+          <div className="col-lg-5">
+            <Address name={hotel.operator.name} address={hotel.operator.address} />
+          </div>
+          <div className="col-lg-5">
+            <Contact contact={hotel.operator.contact} />
+          </div>
+        </div>
+      )}
       {handleCancellationFormSubmit && hotel.bookingUri && (
         <React.Fragment>
           <div className="row pt-1">

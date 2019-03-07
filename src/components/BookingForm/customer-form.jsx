@@ -85,7 +85,7 @@ const CustomerForm = ({ errors, touched }) => {
       </div>
       <div className="form-row mb-1">
         <div className="col col-form-label required col-md-3">
-          <label htmlFor="customer.address.line1">Line 1</label>
+          <label htmlFor="customer.address.road">Street</label>
         </div>
         <div className="col">
           <Field
@@ -93,34 +93,34 @@ const CustomerForm = ({ errors, touched }) => {
             type="text"
             className={
             `form-control ${
-              errors.customer && errors.customer.address && errors.customer.address.line1 && touched.customer && touched.customer.address && touched.customer.address.line1 && 'is-invalid'}`
+              errors.customer && errors.customer.address && errors.customer.address.road && touched.customer && touched.customer.address && touched.customer.address.road && 'is-invalid'}`
           }
-            name="customer.address.line1"
-            id="customer.address.line1"
+            name="customer.address.road"
+            id="customer.address.road"
           />
-          {errors.customer && errors.customer.address && errors.customer.address.line1 && touched.customer && touched.customer.address && touched.customer.address.line1 && <small className="text-danger">{errors.customer.address.line1}</small>}
+          {errors.customer && errors.customer.address && errors.customer.address.road && touched.customer && touched.customer.address && touched.customer.address.road && <small className="text-danger">{errors.customer.address.road}</small>}
         </div>
       </div>
       <div className="form-row mb-1">
-        <div className="col col-form-label col-md-3">
-          <label htmlFor="customer.address.line2">Line 2</label>
+        <div className="col col-form-label required col-md-3">
+          <label htmlFor="customer.address.houseNumber">House number</label>
         </div>
         <div className="col">
           <Field
             type="text"
             className={
             `form-control ${
-              errors.customer && errors.customer.address && errors.customer.address.line2 && touched.customer && touched.customer.address && touched.customer.address.line2 && 'is-invalid'}`
+              errors.customer && errors.customer.address && errors.customer.address.houseNumber && touched.customer && touched.customer.address && touched.customer.address.houseNumber && 'is-invalid'}`
           }
-            name="customer.address.line2"
-            id="customer.address.line2"
+            name="customer.address.houseNumber"
+            id="customer.address.houseNumber"
           />
-          {errors.customer && errors.customer.address && errors.customer.address.line2 && touched.customer && touched.customer.address && touched.customer.address.line2 && <small className="text-danger">{errors.customer.address.line2}</small>}
+          {errors.customer && errors.customer.address && errors.customer.address.houseNumber && touched.customer && touched.customer.address && touched.customer.address.houseNumber && <small className="text-danger">{errors.customer.address.houseNumber}</small>}
         </div>
       </div>
       <div className="form-row mb-1">
         <div className="col col-form-label col-md-3">
-          <label htmlFor="customer.address.postalCode">Postal code</label>
+          <label htmlFor="customer.address.postcode">Postal code</label>
         </div>
         <div className="col">
           <Field
@@ -172,7 +172,7 @@ const CustomerForm = ({ errors, touched }) => {
       </div>
       <div className="form-row mb-1">
         <div className="col col-form-label required col-md-3">
-          <label htmlFor="customer.address.country">Country</label>
+          <label htmlFor="customer.address.countryCode">Country</label>
         </div>
         <div className="col">
           <Field
@@ -180,14 +180,14 @@ const CustomerForm = ({ errors, touched }) => {
             component="select"
             className={
             `custom-select form-control ${
-              errors.customer && errors.customer.address && errors.customer.address.country && touched.customer && touched.customer.address && touched.customer.address.country && 'is-invalid'}`
+              errors.customer && errors.customer.address && errors.customer.address.countryCode && touched.customer && touched.customer.address && touched.customer.address.countryCode && 'is-invalid'}`
           }
-            name="customer.address.country"
-            id="customer.address.country"
+            name="customer.address.countryCode"
+            id="customer.address.countryCode"
           >
             {countries}
           </Field>
-          {errors.customer && errors.customer.address && errors.customer.address.country && touched.customer && touched.customer.address && touched.customer.address.country && <small className="text-danger">{errors.customer.address.country}</small>}
+          {errors.customer && errors.customer.address && errors.customer.address.countryCode && touched.customer && touched.customer.address && touched.customer.address.countryCode && <small className="text-danger">{errors.customer.address.countryCode}</small>}
         </div>
       </div>
     </React.Fragment>

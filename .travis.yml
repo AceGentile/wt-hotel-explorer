@@ -1,6 +1,4 @@
 language: node_js
-node_js:
-- node
 install: case $TRAVIS_BRANCH in greenkeeper*) npm i;; *) npm ci;; esac;
 cache:
   directories:
@@ -24,6 +22,20 @@ jobs:
       --short HEAD` -t windingtree/wt-hotel-explorer:$TRAVIS_BRANCH .
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push windingtree/wt-hotel-explorer:$TRAVIS_BRANCH
+    - docker tag windingtree/wt-hotel-explorer:$TRAVIS_BRANCH windingtree/wt-hotel-explorer:latest
+    - docker push windingtree/wt-hotel-explorer:latest
+  - stage: NPM release
+    if: tag IS present
+    script:
+    - npm run build
+    deploy:
+      provider: npm
+      email: chadima.jiri@gmail.com
+      skip_cleanup: true
+      api_key: "$NPM_TOKEN"
+      on:
+        repo: windingtree/wt-hotel-explorer
+        tags: true
   - stage: release-playground
     install: true
     if: branch = release/playground
@@ -51,5 +63,4 @@ env:
   - secure: KjYoVx3WSFKvrMnMeLTl6YbeJ2xGm0w154UibtHUGTmVXtNGvuwy9a3b3b1tWV9usYnkuUHCBNI/0UJ8LjbGwdXKq28mxrkw0fXVSwvfRZMPY6vk4K7YeCEdKayhldVS4QPvYNjfFBQPjP5uOGc9Jwdfz+R4fRxOb7WqQteU4g+0+EbYGEPp05BXddeK7gByQbLrpClT0Qw6HqxP1rq3XzXgc9rak6sVmDBFRuXNTz79HZz/yKuI3855+rg5p4htKB1OgPJ5w70FiurZbL61nWRRSCF7F/5561ug+rsuUO2/3s05ILoAySf+IE5kokwKtUcyRz65w5XNeqGd1XyWhInNOASR7Ng7vaaW4Xe8vcfeZgzequnge75IRUnahk8n3cWxu7dRRjqAf1+hteySkYer+QuSheIEk/Qyo63Kgd/qqWSPihShNwTCjumJmFP1ma+MEmJvoMeRsh5lCaYO7cWXItyjE+EtAV01LlIoeFE7521Vx0B74WPRH3kCDSLku2cvvqcMx3Udvm4ad2m2rs2ORmupPByEcI60tU+PyO6StQPs6sjXrXvV/kroFyc35cdCwPbSeLkN5d/mRRborTERt9jsvJqZSbD8MrfiP+Csa0T8LFxNIVhJYCOKP0wsytiiJxvAjl57JtyiYRhwulUktRMwNpn5vd4mT7Yo87Q=
   - secure: ZU1N4GbXs/HFOizOWMy6EqfljffntH49FZ6yH8O0NGlDR+YVNuS+fJueSB1P3tCnaZpxB1hJp1WOe5MG10fjAmK/ykag+mreigKjo69P8jdBkipPkOpUVKVoKNKOeKBO65qrGmhacTedJ10QmZ1ldemnBiH4gRwgeql41Om3eTLfDfd7ZxiZTF4rTXU3cgUz5IBLvuDOh8qSzX3xcrSw24inHN0H95R23tCe8ukr3VgZoGH3gXeZDZPL3UP/jvaqoKRr/wdvJ/Ox3AdFXAI4rft0rrysp0fX6H3AqyuBTWuPeUa5kV0PJJn7IRxZJS4PuLmzy4UDsCnQGHcowBShuV4Jkx3URWxyixR4kTSBxL4pG+n6WiPd/9j1vPYdDS17vcEQhgVI0YYp9dduUO02iDcaYSotqhoHTb2xCbtjnWagDyqrVzTM3TpNwxF82g/UEmLwYToAwE6cGMnbBt1ATkouB+heZkgU054hja7cHqRWJBANjwZoh9XHmz1wNZFHGBaZ2KvZ1s8cxrphUpaEDIAHnX+bc0mfR6He/XrxbZboF3nGtLY5t1rIdKtapXtzSxl4mGP99PbW9ckvlb9hjvb26XxHWgvfk5uO4b5crMH3RQ9g9dnOsUFplb5nLLASAj5CjH/dbfALqy45VuoyOGLwwvUvljUuhiL2WA+JVZ4=
   - secure: 1CF5AVyuoWKrcRJdx3EFrxBHrbF6E3HHnNaYsIBaPVvTlMqLVAbRekLbwmk/7c75qYJ/CaSSONgd/Rvkuub9Kk9C1UwzdxdBVDw2A7d9nBAf7NOlY3TESm84IkqPbwLTXw40nWDbbqSiCA3T2euacRR4RWIZNhB+EmFdxgWqxA7vqWl+ttJE4U/9cohspvi6V7VGnNZYij8AlHH99tvKMXm0JcjvBiGh7A9sjdF1fnYh+NOOnx/Jx/U04Cwh8FQteFoQUPYyKo+gZeR+pucQ+NeeGZXR6kKIHYe+Bxjof9ztuPPbx4xGvfZ+15U1pfAFTuRDfY6gsptUywdp6oEnl/LLrZ93vPJ3JJ048wEOFrkxPPlqD0fQUoxoxQZ7mmn+mL4joinQg6XFJZtjwAiDDrVZre7lTT+6rj4aMsOiVie0W/snVn5GISNaOkQ+YBVz0tbwD/0dowTNh64B2ellAyxZHComkvABHWYfmCKzfFL06t0LjTaolAYC2tUL8t+lH04zcOhSIDFGpPLcTBDkQ0otC0eZQ7uEULC+YxuZBRIJVnA+XCcPUEuQgeLMI6bMHWli7KeDhUFn/MtcOfxU5KzIf47u6IJA4kbvJCt1vdV1auxxKyhAAtHc1gYtGwkG7X4BFatnCuWYXScBLx1zAsKS3MNMI5YbZDU5XIYr/cg=
-
-
+  - secure: DnCgP2gBCMC8bObpqRlWB8cv8GjbWEGgd4TWKIeOeaM4P0oIoFcXFQC3cwMA7AedBPEhbjmd9XFbrxHOg2PLik5vTqcr4rFbVoMzlI1aDdvdiZTeKEq1uKlpZ82n9bVgwuV/W5vqdVa4XFHyVfPYAXjjoM7X6/ipdaCtxPw5C7xw+uB3BXeNqy+1sjU0dlx3khb05kQayU7CDmIftRwPHE3TtF6h4vMLkauVuEwLFq0vOwXpP8zcA7Wmp8wIBIKc1mS3r7qmC9/ma8EWncluAY9meY//GFnxDYmlXCebLgSDffl1Cn/VvP5TcAyiw0LObzB49z7j6VFiYwuCeQbgz9/1wtkkVeSt7kSidwSBbzwDvd6YaTuRQWRaChWh7+vAEapigM2VNyZLjKfASoQ32bKqeZEDJm77r05hyDuj3D/zsXvDcr6kTACvqmdj8uoJ8Fcum9+J+TtiYJfJ/l6to2dBr4p+7liN2r0h/AN9cR1PiJO0j+OKHTqZgqkexcr4TTQ4kfiuIYCqINBO5pfYTcQSZKl4S5NNlBaADvf3tweNMDnvGcURbCIMAV/QA/L3DHVdbda6b3TRBen8GAlCm9dOsATQk2g9/n1F7WAHDKC4reVmbBUQKHFjxlSvgBhph3WVI3h3EksBcUIE06APeNn3fWyMMTyeJxgI1E6TQKQ=

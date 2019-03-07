@@ -47,6 +47,6 @@ export default connect(
     };
   },
   dispatch => ({
-    handleSearchFormSubmit: values => dispatch(actions.search.byLocation(values)),
+    handleSearchFormSubmit: values => dispatch(actions.search.byAttributes(values)),
   }),
 )(SearchOnMap);

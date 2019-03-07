@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../Loader';
 import AddressTypeahead from './address-typeahead';
+import enums from '../../services/enums';
 
 const formatName = n => `${n.properties.city || n.properties.name}, ${n.properties.country} (${n.properties.osm_value})`;
 
@@ -10,6 +11,7 @@ class SearchForm extends React.PureComponent {
     isSubmitting: false,
     selectedPoint: [],
     bboxSide: 30,
+    category: '',
   };
 
   examples = {
@@ -39,6 +41,7 @@ class SearchForm extends React.PureComponent {
     super(props);
     this.doSubmit = this.doSubmit.bind(this);
     this.handleBboxSideChange = this.handleBboxSideChange.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.setExample = this.setExample.bind(this);
   }
 
@@ -48,11 +51,13 @@ class SearchForm extends React.PureComponent {
       this.setState({
         bboxSide: this.examples[ex].bboxSide,
         selectedPoint: [this.examples[ex].value],
+        category: '',
       });
       onSubmit(
         formatName(this.examples[ex].value),
         this.examples[ex].value.geometry.coordinates,
         this.examples[ex].bboxSide,
+        '',
       );
     }
   }
@@ -63,12 +68,13 @@ class SearchForm extends React.PureComponent {
       isSubmitting: true,
     });
     const { onSubmit } = this.props;
-    const { selectedPoint, bboxSide } = this.state;
+    const { selectedPoint, bboxSide, category } = this.state;
 
     onSubmit(
       formatName(selectedPoint[0]),
       selectedPoint[0].geometry.coordinates,
       bboxSide,
+      category,
     ).then(() => {
       this.setState({
         isSubmitting: false,
@@ -82,9 +88,15 @@ class SearchForm extends React.PureComponent {
     });
   }
 
+  handleCategoryChange(e) {
+    this.setState({
+      category: e.target.value,
+    });
+  }
+
   render() {
     const {
-      isSubmitting, bboxSide, selectedPoint, lookupError,
+      isSubmitting, bboxSide, selectedPoint, category, lookupError,
     } = this.state;
     const examples = Object.keys(this.examples).map(ex => (
       <button
@@ -96,6 +108,10 @@ class SearchForm extends React.PureComponent {
         {`${this.examples[ex].bboxSide} KM around ${formatName(this.examples[ex].value)}`}
       </button>
     ));
+
+    const categories = Object.keys(enums.hotelCategory)
+      .map(k => <option key={k} value={k}>{enums.hotelCategory[k]}</option>);
+    categories.unshift((<option key="not-chosen" value="">--</option>));
 
     return (
       <React.Fragment>
@@ -109,7 +125,7 @@ class SearchForm extends React.PureComponent {
 
         <form className="mb-1" onSubmit={this.doSubmit}>
           <div className="form-row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label htmlFor="centerpoint">Hotels near</label>
               <AddressTypeahead
                 onChange={(val) => {
@@ -129,7 +145,7 @@ class SearchForm extends React.PureComponent {
                 inputProps={{ name: 'centerpoint', id: 'centerpoint', disabled: isSubmitting }}
               />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-2">
               <label htmlFor="bboxSide">Search box side size (KM)</label>
               <input
                 disabled={isSubmitting}
@@ -143,6 +159,18 @@ class SearchForm extends React.PureComponent {
                 onChange={this.handleBboxSideChange}
                 placeholder="20"
               />
+            </div>
+            <div className="col-md-3">
+              <label htmlFor="bboxSide">Category</label>
+              <select
+                disabled={isSubmitting}
+                name="category"
+                id="category"
+                value={category}
+                onChange={this.handleCategoryChange}
+              >
+                {categories}
+              </select>
             </div>
             <div className="col-md-3">
               <button

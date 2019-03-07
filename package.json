@@ -1,6 +1,6 @@
 {
-  "name": "wt-hotel-explorer",
-  "version": "0.8.3",
+  "name": "@windingtree/wt-hotel-explorer",
+  "version": "0.9.0",
   "description": "Web app to show hotel inventory from WT api.",
   "scripts": {
     "lint": "eslint src test --ext jsx,js",
@@ -8,10 +8,10 @@
     "test": "rimraf coverage && jest --coverage",
     "coverage": "cat coverage/lcov.info | coveralls",
     "start": "NODE_ENV=development GIT_REV=`git rev-parse --short HEAD` ./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --disable-host-check",
-    "update-country-list": "node ./management/get-country-codes.js > src/assets/country-list.json",
+    "update-country-list": "node ./management/get-country-codes.js",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --mode=production",
-    "build-env-file": "./management/build-env-file.sh",
-    "superstatic": "./node_modules/.bin/superstatic --debug 1 --port 8080 --host 0.0.0.0 --gzip 1 public/",
+    "build-env-file": "node ./management/build-env-file.js",
+    "superstatic": "./node_modules/.bin/superstatic --debug 1 --port 8080 --host 0.0.0.0 --compression 1 public/",
     "docker-start": "npm run build-env-file && npm run superstatic",
     "deploy-aws-playground": "./management/deploy-aws.sh playground",
     "deploy-aws-demo": "./management/deploy-aws.sh demo",
@@ -21,10 +21,17 @@
     "type": "git",
     "url": "https://github.com/windingtree/wt-hotel-explorer"
   },
+  "bin": {
+    "wt-hotel-explorer": "./management/start-app.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "@windingtree/wt-pricing-algorithms": "^0.4.2",
+    "@fragaria/address-formatter": "^2.0.2",
+    "@windingtree/wt-pricing-algorithms": "^0.5.3",
     "@windingtree/wt-ui": "^1.2.1",
     "animate.css": "^3.7.0",
     "bootstrap": "^4.1.3",
@@ -45,7 +52,7 @@
     "react-bootstrap-typeahead": "^3.2.4",
     "react-dom": "^16.6.3",
     "react-geolocated": "^2.4.0",
-    "react-hot-loader": "^4.3.12",
+    "react-hot-loader": "^4.8.0",
     "react-leaflet": "^2.1.2",
     "react-loadable": "^5.4.0",
     "react-markdown": "^4.0.3",
@@ -71,10 +78,10 @@
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.4",
-    "clean-webpack-plugin": "^1.0.0",
-    "copy-webpack-plugin": "^4.6.0",
+    "clean-webpack-plugin": "^2.0.0",
+    "copy-webpack-plugin": "^5.0.0",
     "coveralls": "^3.0.2",
     "css-loader": "^2.0.0",
     "cssnano": "^4.1.7",
@@ -87,7 +94,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
-    "jest": "^23.6.0",
+    "jest": "^24.1.0",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.10.0",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
@@ -104,7 +111,7 @@
     "webpack": "^4.25.1",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.2.0"
   },
   "jest": {
     "testRegex": "./test/.*.spec.jsx",

@@ -43,13 +43,13 @@ export const recomputeHotelEstimates = ({ id }) => (dispatch, getState) => {
     });
   });
 
-  const quantities = hotel.availability && hotel.availability.availability
+  const quantities = hotel.availability && hotel.availability.items
     ? availability.computeAvailability(
       guestData.arrival,
       guestData.departure,
       guestData.guests.length,
       hotel.roomTypes,
-      hotel.availability.availability,
+      hotel.availability.items,
     ) : [];
   dispatch({
     type: 'SET_ESTIMATES',

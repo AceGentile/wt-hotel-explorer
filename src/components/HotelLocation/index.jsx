@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import addressFormatter from '@fragaria/address-formatter';
 
 import {
   Map, TileLayer, Marker, Popup,
@@ -10,56 +11,17 @@ import L from 'leaflet';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-import countryList from '../../assets/country-list.json';
-
-const indexedCountryList = countryList.reduce((acc, c) => {
-  acc[c.code] = c.name;
-  return acc;
-}, {});
 
 const Address = ({ name, address }) => (
   <React.Fragment>
     <h4>{name}</h4>
     <p>
-      {address.line1 && (
-      <span>
-        {address.line1}
-        <br />
-      </span>
-      )}
-      {address.line2 && (
-      <span>
-        {address.line2}
-        <br />
-      </span>
-      )}
-      {address.city && (
-      <span>
-        {address.city}
-        {address.state || address.postalCode ? ',' : ''}
-        {address.state && (
-          <React.Fragment>
-            {' '}
-            {address.state}
-          </React.Fragment>
-        )}
-        {address.postalCode && (
-          <React.Fragment>
-            {' '}
-            {address.postalCode}
-          </React.Fragment>
-        )}
-        <br />
-      </span>
-      )}
-      {address.country && (
-      <span>
-        {indexedCountryList[address.country]
-          ? indexedCountryList[address.country]
-          : address.country}
-        <br />
-      </span>
-      )}
+      {addressFormatter.format(address, { appendCountry: true, output: 'array' }).map(l => (
+        <span key={l}>
+          {l}
+          <br />
+        </span>
+      ))}
     </p>
   </React.Fragment>
 );

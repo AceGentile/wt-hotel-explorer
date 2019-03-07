@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import ScrollAnimation from 'react-animate-on-scroll';
 import RoomTypeImageModal from '../RoomTypeImageModal';
-import AmenitiesList from '../AmenitiesList';
+import PillList from '../PillList';
 import { QuantityBadge, AvailabilityBadge } from './badges';
 import imagePlaceholder from '../../assets/img/placeholder.png';
+import enums from '../../services/enums';
 
 const BookRoomButton = ({ onBookRoomTypeClicked, hotelId, roomTypeId }) => {
   const handleClick = () => {
@@ -24,7 +25,7 @@ BookRoomButton.propTypes = {
   roomTypeId: PropTypes.string.isRequired,
 };
 
-// TODO use properties, totalQuantity and occupancy
+// TODO use totalQuantity and occupancy
 class RoomType extends React.PureComponent {
   render() {
     const {
@@ -66,9 +67,10 @@ class RoomType extends React.PureComponent {
                 </div>
               </div>
               )}
-              {roomType.amenities && (
+              {(roomType.amenities || enums.roomTypeCategory[roomType.category]) && (
                 <div className="card-footer bg-white">
-                  <AmenitiesList list={roomType.amenities} />
+                  <PillList list={[enums.roomTypeCategory[roomType.category]]} className="badge-primary" prefix="Category: " />
+                  <PillList list={roomType.amenities} />
                 </div>
               )}
               {hotel.bookingUri && estimate.price && estimate.quantity > 0 && (

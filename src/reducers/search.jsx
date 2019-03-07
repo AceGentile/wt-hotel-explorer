@@ -5,7 +5,7 @@ const defaultState = {
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
-    case 'SEARCH_HOTELS_BY_LOCATION_SUCCEEDED':
+    case 'SEARCH_HOTELS_SUCCEEDED':
       return Object.assign({}, state, {
         results: action.payload.items.map(h => h.id),
         sortingScores: action.payload.sortingScores,
