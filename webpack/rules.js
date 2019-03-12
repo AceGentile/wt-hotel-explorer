@@ -1,7 +1,7 @@
 const { join } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const precss = require('precss');
-const postcssCssnext = require('postcss-cssnext');
+const postcssPresetEnv = require('postcss-preset-env');
 
 const devMode = process.env.NODE_ENV === 'development';
 
@@ -36,7 +36,7 @@ const rules = [
           plugins() {
             return [
               precss,
-              postcssCssnext,
+              postcssPresetEnv(),
             ];
           },
         },
