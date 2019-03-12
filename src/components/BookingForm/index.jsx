@@ -116,6 +116,17 @@ const BookingForm = ({
         currency: firstRoomEstimate.currency,
         total: firstRoomEstimate.price.value,
         cancellationFees: hotelBookingData.cancellationFees,
+        // This might not work that easily for other pricing strategies
+        // We also need to cleanup the currencyjs objects
+        components: {
+          stay: firstRoomEstimate.prices[0].components.stay.map(s => Object.assign(s, {
+            subtotal: s.subtotal.value,
+            guests: s.guests.map(g => Object.assign(g, {
+              basePrice: g.basePrice.value,
+              resultingPrice: g.resultingPrice.value,
+            })),
+          })),
+        },
       },
       booking: values.booking,
     };

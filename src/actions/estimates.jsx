@@ -38,6 +38,7 @@ export const recomputeHotelEstimates = ({ id }) => (dispatch, getState) => {
       return pe;
     }
     return Object.assign(pe, {
+      // This might not work that easily for other pricing strategies
       currency: pe.prices[0].currency,
       price: pe.prices[0].total,
     });
