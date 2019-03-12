@@ -44,6 +44,7 @@ class AddressTypeahead extends React.PureComponent {
 
     return (
       <AsyncTypeahead
+        id="address-typeahead"
         isLoading={isLoading}
         onChange={(values) => {
           this.setState({ selected: values });
