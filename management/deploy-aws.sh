@@ -28,6 +28,10 @@ TASK_DEF="[{\"portMappings\": [{\"hostPort\": 0,\"protocol\": \"tcp\",\"containe
       {
         \"name\": \"WT_SEARCH_API\",
         \"value\": \"https://$ENVIRONMENT-search-api.windingtree.com\"
+      },
+      {
+        \"name\": \"WT_SIGN_BOOKING_REQUESTS\",
+        \"value\": \"false\"
       }
     ],
     \"image\": \"docker.io/windingtree/wt-hotel-explorer:$LATEST_TAG\",

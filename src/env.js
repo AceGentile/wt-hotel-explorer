@@ -8,4 +8,6 @@
 window.env = {
   WT_SEARCH_API: 'https://playground-search-api.windingtree.com',
   WT_READ_API: 'https://playground-api.windingtree.com',
+  WT_SIGN_BOOKING_REQUESTS: false,
+  ETH_NETWORK_PROVIDER: '',
 };
