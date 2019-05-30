@@ -1,7 +1,7 @@
 import { soliditySha3 } from 'web3-utils';
 import { createActionThunk } from 'redux-thunk-actions';
 import dayjs from 'dayjs';
-import { WtJsLibs } from '@windingtree/wt-js-libs';
+import { Wallet } from '@windingtree/wt-js-libs';
 import { cancellationFees } from '@windingtree/wt-pricing-algorithms';
 
 import {
@@ -83,22 +83,15 @@ export const translateNetworkError = (status, code, message) => {
   return e;
 };
 
-const loadWallet = (wtJsLibs) => {
-  const wallet = wtJsLibs.createWallet(walletData);
-  const walletPassword = 'test123'; // don't use this wallet in production!
-  wallet.unlock(walletPassword);
-  return wallet;
-};
-
-const getWtJsLibs = () => {
+const loadWallet = () => {
   if (!window.env.ETH_NETWORK_PROVIDER) {
     throw new Error('No ETH_NETWORK_PROVIDER set.');
   }
-  return WtJsLibs.createInstance({
-    onChainDataOptions: {
-      provider: window.env.ETH_NETWORK_PROVIDER,
-    },
-  });
+  const wallet = Wallet.createInstance(walletData);
+  const walletPassword = 'test123'; // don't use this wallet in production!
+  wallet.setupWeb3Eth(process.env.ETH_NETWORK_PROVIDER);
+  wallet.unlock(walletPassword);
+  return wallet;
 };
 
 /**
@@ -112,8 +105,7 @@ const getWtJsLibs = () => {
 export const prepareRequestOptions = async (method, data) => {
   const headers = {};
   if (window.env.WT_SIGN_BOOKING_REQUESTS === 'true') {
-    const wtJsLibs = getWtJsLibs();
-    const wallet = loadWallet(wtJsLibs);
+    const wallet = loadWallet();
     const dataHash = soliditySha3(data);
     const signature = await wallet.signData(dataHash);
     headers['x-wt-signature'] = signature;
