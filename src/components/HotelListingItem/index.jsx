@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import ScrollAnimation from 'react-animate-on-scroll';
 import { withRouter } from 'react-router-dom';
 import imagePlaceholder from '../../assets/img/placeholder.png';
-import enums from '../../services/enums';
+import { hotelCategory } from '../../services/enums';
 
 class HotelListingItem extends React.Component {
   onCardClick = () => {
@@ -56,12 +56,12 @@ class HotelListingItem extends React.Component {
           )}
           <div className="card-footer bg-white pt-0">
             <span className="text--link border-bottom">See detail</span>
-            {enums.hotelCategory[hotel.category] && (
+            {hotelCategory[hotel.category] && (
             <div className="float-right">
               <span className="badge badge-primary">
                 Category:
                 {' '}
-                {enums.hotelCategory[hotel.category]}
+                {hotelCategory[hotel.category]}
               </span>
             </div>
             )}

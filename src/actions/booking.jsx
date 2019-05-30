@@ -1,15 +1,17 @@
+import { soliditySha3 } from 'web3-utils';
 import { createActionThunk } from 'redux-thunk-actions';
 import dayjs from 'dayjs';
-
+import { Wallet } from '@windingtree/wt-js-libs';
 import { cancellationFees } from '@windingtree/wt-pricing-algorithms';
+
 import {
-  HttpError,
   Http404Error,
-  HttpConflictError,
   HttpBadRequestError,
+  HttpConflictError,
+  HttpError,
   HttpInternalServerError,
 } from '../services/errors';
-
+import walletData from '../assets/signing/wallet';
 
 export const setGuestData = ({ arrival, departure, guests }) => (dispatch) => {
   dispatch({
@@ -81,16 +83,56 @@ export const translateNetworkError = (status, code, message) => {
   return e;
 };
 
+const loadWallet = () => {
+  if (!window.env.ETH_NETWORK_PROVIDER) {
+    throw new Error('No ETH_NETWORK_PROVIDER set.');
+  }
+  const wallet = Wallet.createInstance(walletData);
+  const walletPassword = 'test123'; // don't use this wallet in production!
+  wallet.setupWeb3Eth(process.env.ETH_NETWORK_PROVIDER);
+  wallet.unlock(walletPassword);
+  return wallet;
+};
 
-export const sendBooking = createActionThunk('SEND_BOOKING', ({ bookingData, bookingUri }) => {
-  const url = `${bookingUri}/booking`;
-  return fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(bookingData),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+/**
+ * Prepare options for a booking request. If WT_SIGN_BOOKING_REQUESTS is true,
+ * sign the request using provided ethereum wallet.
+ *
+ * @param method {String} HTTP method of the request
+ * @param data {String} Serialized data (body or uri depending on method)
+ * @returns {Promise<{headers: {}, method: String, body?: {}}>}
+ */
+export const prepareRequestOptions = async (method, data) => {
+  const headers = {};
+  if (window.env.WT_SIGN_BOOKING_REQUESTS === 'true') {
+    const wallet = loadWallet();
+    const dataHash = soliditySha3(data);
+    const signature = await wallet.signData(dataHash);
+    headers['x-wt-signature'] = signature;
+    if (method === 'DELETE') {
+      headers['x-wt-origin-address'] = wallet.getAddress();
+    }
+  }
+  const options = {
+    method,
+    headers,
+  };
+  if (method === 'POST') {
+    options.body = data;
+    headers['content-type'] = 'application/json';
+  }
+  return options;
+};
+
+export const sendBooking = createActionThunk('SEND_BOOKING', async ({ bookingData, bookingUri }) => {
+  const uri = `${bookingUri}/booking`;
+  const bookingContents = bookingData;
+  if (window.env.WT_SIGN_BOOKING_REQUESTS === 'true') {
+    const wallet = loadWallet();
+    bookingContents.originAddress = wallet.getAddress();
+  }
+  const options = await prepareRequestOptions('POST', JSON.stringify(bookingContents));
+  return fetch(uri, options)
     .then((response) => {
       if (response.status > 299) {
         throw translateNetworkError(response.status, 'Cannot save booking!');
@@ -128,11 +170,10 @@ export const submitBooking = values => (dispatch, getState) => {
   }));
 };
 
-export const cancelBooking = createActionThunk('CANCEL_BOOKING', (values) => {
-  const url = `${values.bookingUri}/booking/${values.bookingId}`;
-  return fetch(url, {
-    method: 'DELETE',
-  })
+export const cancelBooking = createActionThunk('CANCEL_BOOKING', async (values) => {
+  const uri = `${values.bookingUri}/booking/${values.bookingId}`;
+  const options = await prepareRequestOptions('DELETE', uri);
+  return fetch(uri, options)
     .then((response) => {
       if (response.status === 204) {
         return { status: 204, code: 'ok' };
