@@ -1,4 +1,4 @@
-const hotelCategory = {
+export const hotelCategory = {
   apartment: 'Apartment',
   'bed and breakfast': 'Bed and breakfast',
   boat: 'Boat',
@@ -15,7 +15,7 @@ const hotelCategory = {
   spa: 'Spa',
 };
 
-const roomTypeCategory = {
+export const roomTypeCategory = {
   apartment: 'Apartment',
   barn: 'Barn',
   boat: 'Boat',
@@ -46,7 +46,7 @@ const roomTypeCategory = {
   yurt: 'Yurt',
 };
 
-module.exports = {
+export default {
   hotelCategory,
   roomTypeCategory,
 };

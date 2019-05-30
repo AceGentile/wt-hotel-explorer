@@ -1,4 +1,4 @@
-class HttpError extends Error {
+export class HttpError extends Error {
   constructor(code, msgLong, msgShort) {
     super();
     this.code = code || this.constructor.defaultCode;
@@ -19,40 +19,31 @@ class HttpError extends Error {
   }
 }
 
-class HttpBadRequestError extends HttpError {}
+export class HttpBadRequestError extends HttpError {}
 HttpBadRequestError.status = 400;
 HttpBadRequestError.defaultCode = 'badRequest';
 HttpBadRequestError.defaultMsgShort = 'Bad request.';
 
-class Http404Error extends HttpError {}
+export class Http404Error extends HttpError {}
 Http404Error.status = 404;
 Http404Error.defaultCode = 'notFound';
 Http404Error.defaultMsgShort = 'Page not found.';
 Http404Error.defaultMsgLong = 'This endpoint does not exist.';
 
-class HttpInternalServerError extends HttpError {}
+export class HttpInternalServerError extends HttpError {}
 HttpInternalServerError.status = 500;
 HttpInternalServerError.defaultCode = 'genericError';
 HttpInternalServerError.defaultMsgShort = 'Something went wrong.';
 HttpInternalServerError.defaultMsgLong = 'Something went wrong. Please contact the administrator.';
 
-class HttpBadGatewayError extends HttpError {}
+export class HttpBadGatewayError extends HttpError {}
 HttpBadGatewayError.status = 502;
 HttpBadGatewayError.defaultCode = 'badGatewayError';
 HttpBadGatewayError.defaultMsgShort = 'Bad gateway.';
 HttpBadGatewayError.defaultMsgLong = 'Invalid response from an upstream server.';
 
-class HttpConflictError extends HttpError {}
+export class HttpConflictError extends HttpError {}
 HttpConflictError.status = 409;
 HttpConflictError.defaultCode = 'conflict';
 HttpConflictError.defaultMsgShort = 'Conflicting data.';
 HttpConflictError.defaultMsgLong = 'Data sent does not match with data expected.';
-
-module.exports = {
-  HttpError,
-  Http404Error,
-  HttpBadRequestError,
-  HttpInternalServerError,
-  HttpBadGatewayError,
-  HttpConflictError,
-};

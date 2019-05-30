@@ -1,7 +1,7 @@
 // password for this wallet is public, don't use in production!
 // address: d39ca7d186a37bb6bf48ae8abfeb4c687dc8f906
 // password: test123
-module.exports = {
+export default {
   version: 3,
   id: 'ffa1e3be-e80a-4e1c-bb71-ed54c3bef115',
   crypto: {

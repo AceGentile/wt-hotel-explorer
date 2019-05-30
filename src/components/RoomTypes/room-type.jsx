@@ -6,7 +6,7 @@ import RoomTypeImageModal from '../RoomTypeImageModal';
 import PillList from '../PillList';
 import { QuantityBadge, AvailabilityBadge } from './badges';
 import imagePlaceholder from '../../assets/img/placeholder.png';
-import enums from '../../services/enums';
+import { roomTypeCategory } from '../../services/enums';
 
 const BookRoomButton = ({ onBookRoomTypeClicked, hotelId, roomTypeId }) => {
   const handleClick = () => {
@@ -67,9 +67,9 @@ class RoomType extends React.PureComponent {
                 </div>
               </div>
               )}
-              {(roomType.amenities || enums.roomTypeCategory[roomType.category]) && (
+              {(roomType.amenities || roomTypeCategory[roomType.category]) && (
                 <div className="card-footer bg-white">
-                  <PillList list={[enums.roomTypeCategory[roomType.category]]} className="badge-primary" prefix="Category: " />
+                  <PillList list={[roomTypeCategory[roomType.category]]} className="badge-primary" prefix="Category: " />
                   <PillList list={roomType.amenities} />
                 </div>
               )}
