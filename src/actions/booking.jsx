@@ -126,7 +126,12 @@ export const prepareRequestOptions = async (method, data) => {
 
 export const sendBooking = createActionThunk('SEND_BOOKING', async ({ bookingData, bookingUri }) => {
   const uri = `${bookingUri}/booking`;
-  const options = await prepareRequestOptions('POST', JSON.stringify(bookingData));
+  const bookingContents = bookingData;
+  if (window.env.WT_SIGN_BOOKING_REQUESTS === 'true') {
+    const wallet = loadWallet();
+    bookingContents.originAddress = wallet.getAddress();
+  }
+  const options = await prepareRequestOptions('POST', JSON.stringify(bookingContents));
   return fetch(uri, options)
     .then((response) => {
       if (response.status > 299) {

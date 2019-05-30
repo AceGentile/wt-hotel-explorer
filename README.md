@@ -47,7 +47,7 @@ These are:
 ```
 - `WT_READ_API` - wt-read-api instance url
 - `WT_SEARCH_API` - wt-search-api instance url
-- `WT_SIGN_BOOKING_REQUESTS` - Sign outgoing booking and cancellation requests when set to `true`.
+- `WT_SIGN_BOOKING_REQUESTS` - Sign outgoing booking and cancellation requests when set to `true` (an actual string 'true', a strict comparison is used in the app).
 - `ETH_NETWORK_PROVIDER` - Address of an Ethereum node, for example `https://ropsten.infura.io/v3/my-project-id`
 
 ```
