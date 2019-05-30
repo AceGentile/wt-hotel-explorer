@@ -1,4 +1,3 @@
-import Web3 from 'web3';
 import { soliditySha3 } from 'web3-utils';
 import { createActionThunk } from 'redux-thunk-actions';
 import dayjs from 'dayjs';
@@ -95,10 +94,9 @@ const getWtJsLibs = () => {
   if (!window.env.ETH_NETWORK_PROVIDER) {
     throw new Error('No ETH_NETWORK_PROVIDER set.');
   }
-  const provider = new Web3.providers.HttpProvider(window.env.ETH_NETWORK_PROVIDER);
   return WtJsLibs.createInstance({
     onChainDataOptions: {
-      provider,
+      provider: window.env.ETH_NETWORK_PROVIDER,
     },
   });
 };

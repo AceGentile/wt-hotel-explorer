@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint src test --ext jsx,js",
     "test-watch": "jest --watch",
-    "test": "rimraf coverage && WT_SIGN_BOOKING_REQUESTS=true ETH_NETWORK_PROVIDER='http://localhost:8555' jest --coverage",
+    "test": "rimraf coverage && WT_SIGN_BOOKING_REQUESTS=true ETH_NETWORK_PROVIDER='http://localhost:8545' jest --coverage",
     "coverage": "cat coverage/lcov.info | coveralls",
     "start": "NODE_ENV=development GIT_REV=`git rev-parse --short HEAD` ./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --disable-host-check",
     "update-country-list": "node ./management/get-country-codes.js",
@@ -66,7 +66,6 @@
     "redux-thunk": "^2.3.0",
     "redux-thunk-actions": "^1.2.1",
     "reselect": "^4.0.0",
-    "web3": "^1.0.0-beta.37",
     "web3-utils": "^1.0.0-beta.37"
   },
   "devDependencies": {
