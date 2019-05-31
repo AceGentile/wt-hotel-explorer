@@ -37,8 +37,8 @@ environment.
 You can install and run this from NPM as well:
 
 ```sh
-$ npm install -g @windingtree/wt-hotel-explorer
-$ WT_READ_API=https://playground-api.windingtree.com -e WT_SEARCH_API=https://playground-search-api.windingtree.com wt-hotel-explorer
+$ npm install -g @windingtree/wt-hotel-explorer superstatic
+$ WT_READ_API=https://playground-api.windingtree.com WT_SEARCH_API=https://playground-search-api.windingtree.com wt-hotel-explorer
 ```
 
 You can customize the behaviour of the explorer by setting environment
