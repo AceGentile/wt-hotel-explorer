@@ -9,7 +9,7 @@ jobs:
   - stage: test
     script:
     - npm run lint && npm run test && npm run coverage
-  - stage: Build docker image and upload to AWS
+  - stage: Build docker image and upload to dockerhub
     sudo: true
     services:
     - docker
