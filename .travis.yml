@@ -16,7 +16,6 @@ jobs:
     install: true
     if: tag IS present
     script:
-    - pip install --user awscli
     - export PATH=$PATH:$HOME/.local/bin
     - docker build --build-arg NODE_ENV=production --build-arg GIT_REV=`git rev-parse
       --short HEAD` -t windingtree/wt-hotel-explorer:$TRAVIS_BRANCH .
