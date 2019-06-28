@@ -1,6 +1,6 @@
 {
   "name": "@windingtree/wt-hotel-explorer",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Web app to show hotel inventory from WT api.",
   "scripts": {
     "lint": "eslint src test --ext jsx,js",
