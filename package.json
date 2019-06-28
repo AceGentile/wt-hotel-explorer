@@ -14,7 +14,7 @@
     "superstatic": "./node_modules/.bin/superstatic --debug 1 --port 8080 --host 0.0.0.0 --compression 1 public/",
     "docker-start": "npm run build-env-file && npm run superstatic",
     "deploy-aws-playground": "./management/deploy-aws.sh playground",
-    "deploy-aws-demo": "./management/deploy-aws.sh demo",
+    "deploy-aws-lisbon": "./management/deploy-aws.sh lisbon",
     "build-for-swarm-playground": "NODE_ENV=production GIT_REV=$TRAVIS_COMMIT HASH_ROUTED_BUILD=1 ./node_modules/.bin/webpack --mode=production"
   },
   "repository": {
