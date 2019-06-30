@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import ScrollAnimation from 'react-animate-on-scroll';
 
 import PillList from '../PillList';
@@ -23,7 +23,7 @@ const HotelDetail = ({
           <h1 className="mt-1">{hotel.name}</h1>
           <div className="row">
             <div className="col-md-10 mx-auto">
-              <ReactMarkdown source={hotel.description} className="hotel-description mb-1" />
+              <ReactMarkdown source={hotel.description} className="hotel-description mb-1" escapeHtml />
             </div>
           </div>
           {(hotel.amenities || hotelCategory[hotel.category] || hotel.spokenLanguages) && (

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import ScrollAnimation from 'react-animate-on-scroll';
 import { withRouter } from 'react-router-dom';
 import imagePlaceholder from '../../assets/img/placeholder.png';
@@ -36,7 +36,7 @@ class HotelListingItem extends React.Component {
           <div className="card-body pt-1 text-muted block-fade">
             <h5 className="card-title h6">{hotel.name}</h5>
             <div className="card-text">
-              <ReactMarkdown source={hotel.description} />
+              <ReactMarkdown source={hotel.description} escapeHtml />
             </div>
           </div>
           {currentLowestEstimate.price && (

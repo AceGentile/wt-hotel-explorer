@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import ScrollAnimation from 'react-animate-on-scroll';
 import RoomTypeImageModal from '../RoomTypeImageModal';
 import PillList from '../PillList';
@@ -52,7 +52,7 @@ class RoomType extends React.PureComponent {
 
               <div className="card-body pt-1 text-muted" style={{ minHeight: 200 }}>
                 <h5 className="card-title h6">{roomType.name}</h5>
-                <ReactMarkdown className="card-text text--weight-normal" source={roomType.description} />
+                <ReactMarkdown className="card-text text--weight-normal" source={roomType.description} escapeHtml />
               </div>
 
               {estimate.price && (
