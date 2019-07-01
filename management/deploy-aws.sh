@@ -35,7 +35,7 @@ TASK_DEF="[{\"portMappings\": [{\"hostPort\": 0,\"protocol\": \"tcp\",\"containe
       },
       {
         \"name\": \"ETH_NETWORK_PROVIDER\",
-        \"value\": \"https://ropsten.infura.io/v3/def1927234dd483c84e21d35d0e36a95\",
+        \"value\": \"https://ropsten.infura.io/v3/def1927234dd483c84e21d35d0e36a95\"
       }
     ],
     \"image\": \"docker.io/windingtree/wt-hotel-explorer:$LATEST_TAG\",
