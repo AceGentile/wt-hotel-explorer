@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
 import PillList from '../PillList';
 import RoomTypeImageModal from '../RoomTypeImageModal';
 import imagePlaceholder from '../../assets/img/placeholder.png';
@@ -31,7 +31,7 @@ class RoomType extends React.PureComponent {
           <div className="col-sm-12 col-lg-6 d-flex">
             <div className="pt-1 text-muted">
               <h5 className="card-title h5">{roomType.name}</h5>
-              <ReactMarkdown className="card-text text--weight-normal" source={roomType.description} />
+              <ReactMarkdown className="card-text text--weight-normal" source={roomType.description} escapeHtml />
               <PillList list={roomType.amenities} />
             </div>
           </div>

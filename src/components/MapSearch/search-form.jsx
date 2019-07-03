@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../Loader';
 import AddressTypeahead from './address-typeahead';
-import enums from '../../services/enums';
+import { hotelCategory } from '../../services/enums';
 
 const formatName = n => `${n.properties.city || n.properties.name}, ${n.properties.country} (${n.properties.osm_value})`;
 
@@ -109,8 +109,8 @@ class SearchForm extends React.PureComponent {
       </button>
     ));
 
-    const categories = Object.keys(enums.hotelCategory)
-      .map(k => <option key={k} value={k}>{enums.hotelCategory[k]}</option>);
+    const categories = Object.keys(hotelCategory)
+      .map(k => <option key={k} value={k}>{hotelCategory[k]}</option>);
     categories.unshift((<option key="not-chosen" value="">--</option>));
 
     return (

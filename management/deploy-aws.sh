@@ -7,9 +7,11 @@ TASK_FAMILY="$ENVIRONMENT-wt-hotel-explorer"
 SERVICE_NAME="$ENVIRONMENT-wt-hotel-explorer"
 AWS_REGION="eu-west-1"
 
-
 # container setup options
 LATEST_TAG=`git describe --abbrev=0 --tags`
+
+# container startup options
+ETH_NETWORK_PROVIDER_RESOLVED="${ENVIRONMENT^^}_ETH_NETWORK_PROVIDER"
 
 TASK_DEF="[{\"portMappings\": [{\"hostPort\": 0,\"protocol\": \"tcp\",\"containerPort\": 8080}],
    \"logConfiguration\": {
@@ -28,6 +30,14 @@ TASK_DEF="[{\"portMappings\": [{\"hostPort\": 0,\"protocol\": \"tcp\",\"containe
       {
         \"name\": \"WT_SEARCH_API\",
         \"value\": \"https://$ENVIRONMENT-search-api.windingtree.com\"
+      },
+      {
+        \"name\": \"WT_SIGN_BOOKING_REQUESTS\",
+        \"value\": \"false\"
+      },
+      {
+        \"name\": \"ETH_NETWORK_PROVIDER\",
+        \"value\": \"${!ETH_NETWORK_PROVIDER_RESOLVED}\"
       }
     ],
     \"image\": \"docker.io/windingtree/wt-hotel-explorer:$LATEST_TAG\",

@@ -1,5 +1,5 @@
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const optimization = {
   splitChunks: {
@@ -7,10 +7,10 @@ const optimization = {
     maxSize: 800000,
   },
   minimizer: [
-    new UglifyJsPlugin({
+    new TerserPlugin({
       cache: true,
       parallel: true,
-      sourceMap: true, // set to true if you want JS source maps
+      sourceMap: true,
     }),
     new OptimizeCSSAssetsPlugin(),
   ],
