@@ -37,6 +37,10 @@ describe('RoomType', () => {
       id: 'hotel-id',
     },
     roomType: {
+      occupancy: {
+        min: 1,
+        max: 3,
+      },
       amenities: ['amenity1', 'amenity2'],
       id: 'room-type-id',
       images: ['image1.png', 'image2.png'],
@@ -58,7 +62,7 @@ describe('RoomType', () => {
     expect(component.find(QuantityBadge)).toHaveLength(1);
     expect(component.find(AvailabilityBadge)).toHaveLength(1);
     expect(component.find(BookRoomButton)).toHaveLength(1);
-    expect(component.find(PillList)).toHaveLength(2);
+    expect(component.find(PillList)).toHaveLength(3);
   });
 
   it('no roomType.amenities and no roomType.category provided', () => {
@@ -89,7 +93,7 @@ describe('RoomType', () => {
     expect(component.find(QuantityBadge)).toHaveLength(1);
     expect(component.find(AvailabilityBadge)).toHaveLength(1);
     expect(component.find(BookRoomButton)).toHaveLength(0);
-    expect(component.find(PillList)).toHaveLength(2);
+    expect(component.find(PillList)).toHaveLength(3);
   });
 
   it('no estimate.price provided', () => {
@@ -104,7 +108,7 @@ describe('RoomType', () => {
     expect(component.find(QuantityBadge)).toHaveLength(0);
     expect(component.find(AvailabilityBadge)).toHaveLength(0);
     expect(component.find(BookRoomButton)).toHaveLength(0);
-    expect(component.find(PillList)).toHaveLength(2);
+    expect(component.find(PillList)).toHaveLength(3);
   });
 
   it('AvailabilityBadge', () => {
@@ -159,14 +163,41 @@ describe('RoomType', () => {
         .at(1).dive().find('span > span')
         .at(0)
         .props().children,
+    ).toEqual(['Occupancy: ', '1 - 3']);
+    expect(
+      component.find(PillList)
+        .at(2).dive().find('span > span')
+        .at(0)
+        .props().children,
     ).toEqual([undefined, 'amenity1']);
     expect(
       component.find(PillList)
-        .at(1).dive().find('span > span')
+        .at(2).dive().find('span > span')
         .at(1)
         .props().children,
     ).toEqual([undefined, 'amenity2']);
   });
+
+  it('PillList for amenities when occupancy.min === occupancy.max', () => {
+    const props = {
+      ...baseProps,
+      roomType: {
+        ...baseProps.roomType,
+        occupancy: {
+          min: 3,
+          max: 3,
+        },
+      },
+    };
+    const component = shallow(<RoomType {...props} />);
+    expect(
+      component.find(PillList)
+        .at(1).dive().find('span > span')
+        .at(0)
+        .props().children,
+    ).toEqual(['Occupancy: ', 3]);
+  });
+
 
   it('BookRoomButton', () => {
     const props = { ...baseProps, onBookRoomTypeClicked: jest.fn() };

@@ -70,6 +70,13 @@ class RoomType extends React.PureComponent {
               {(roomType.amenities || roomTypeCategory[roomType.category]) && (
                 <div className="card-footer bg-white">
                   <PillList list={[roomTypeCategory[roomType.category]]} className="badge-primary" prefix="Category: " />
+                  {roomType.occupancy && (
+                    <PillList
+                      list={[roomType.occupancy.min !== roomType.occupancy.max ? `${roomType.occupancy.min} - ${roomType.occupancy.max}` : roomType.occupancy.min]}
+                      className="badge-info"
+                      prefix="Occupancy: "
+                    />
+                  )}
                   <PillList list={roomType.amenities} />
                 </div>
               )}
