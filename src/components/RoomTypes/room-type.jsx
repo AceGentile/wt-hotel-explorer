@@ -8,7 +8,7 @@ import { QuantityBadge, AvailabilityBadge } from './badges';
 import imagePlaceholder from '../../assets/img/placeholder.png';
 import { roomTypeCategory } from '../../services/enums';
 
-const BookRoomButton = ({ onBookRoomTypeClicked, hotelId, roomTypeId }) => {
+export const BookRoomButton = ({ onBookRoomTypeClicked, hotelId, roomTypeId }) => {
   const handleClick = () => {
     onBookRoomTypeClicked({ hotelId, roomTypeId });
   };
